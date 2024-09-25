@@ -6,6 +6,7 @@ const projects=require('./models/ProjectModel')
 const users=require('./models/UserModel')
 const router=require('./routes/ProjectRoutes')
 app.use(express.json())
+app.use(cors())
 const port=process.env.PORT || 7778
 app.use('/projects', router)
 app.get('/',(req,res)=>{

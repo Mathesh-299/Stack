@@ -6,7 +6,6 @@ import { getProjects } from "../service/api"
 const Projects = () => {
   const [projectdata, setProjectdata] = useState(null)
   const fetchprojects = async () => {
-    // const {}
     try {
       const { data } = await getProjects()
       setProjectdata(data)
@@ -15,7 +14,6 @@ const Projects = () => {
       // toast('Error');
     }
   }
-  // console.log(projectdata)
 
 
   useEffect(() => {
@@ -33,7 +31,7 @@ const Projects = () => {
             <>
               {
                 projectdata?.map((data, index) => (
-                  <Projectcard title={data.title} desc={data.desc} key={index} pid={index} cover={data.coverimg} id={data.id} link={data.link}/>
+                  <Projectcard title={data.title} desc={data.desc} key={index} pid={index} cover={data.coverimg} id={data.id} link={data.link} fetchprojects={fetchprojects} />
                 ))
               }
             </>
@@ -46,7 +44,7 @@ const Projects = () => {
 
         }
       </div >
-{/* /users */}
+      {/* /users */}
       {/* <Toaster richColors /> */}
     </>
   )

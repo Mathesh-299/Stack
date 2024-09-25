@@ -6,3 +6,4 @@ const addProject = (projectdata) => axios.post(`${API}/project`, projectdata)
 const editProject = (id, projectdata) => axios.put(`${API}/project/${id}`, projectdata)
 const deleteProject = (id) => axios.delete(`${API}/project/${id}`)
 export { addProject, deleteProject, editProject, getProjectbyID, getProjects }
+

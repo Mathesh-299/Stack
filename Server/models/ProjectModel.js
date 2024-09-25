@@ -7,9 +7,16 @@ const projectSchema = new mongoose.Schema({
     },
     desc:{
         type:String,
-        requied:true
+        required:true
+    },
+    link:{
+        type:String,
+        required:true
+    },
+    cover:{
+        type:String,
+        required:true
     }
-
 })
 
 const projects=mongoose.model("Projects",projectSchema)

@@ -2,47 +2,46 @@ import { Pencil, Trash } from 'lucide-react';
 import React, { useState } from 'react';
 import { deleteProject, editProject } from '../service/api';
 
-export const Projectcard = ({ title, desc, cover, id, link }) => {
+export const Projectcard = ({id, title, cover, desc, link, fetchprojects }) => {
   const [titleState, settitleState] = useState(title);
+  const [coverState, setcoverState] = useState(cover)
   const [descState, setdescState] = useState(desc);
   const [linkState, setlinkState] = useState(link)
-  const [coverState, setcoverState] = useState(cover)
   const [visible, setvisible] = useState(false)
 
   const handleeditproject = async (e) => {
     e.preventDefault();
     const projectdata = {
       title: titleState,
+      cover: coverState,
       desc: descState,
-      link: linkState,
-      cover: coverState
+      link: linkState
     }
     try {
       const response = await editProject(id, projectdata)
       console.log(response.status)
-      if (response === 200) {
+      if (response.status === 200) {
         console.log("updated")
+        fetchprojects()
       }
-      fetchprojects()
     } catch (error) {
       console.warn(error)
     }
+    setvisible(false)
   }
   const handleDelete = async (id) => {
     try {
       const response = await deleteProject(id)
       console.log(response.status)
-      if (!response.status === 200) {
+      if (response.status === 200) {
         console.log("Deleted")
+        fetchprojects()
       }
-      fetchprojects()
     } catch (error) {
       console.log(error)
     }
+
   }
-
-
-
   return (
     <>
       <div className="service-card w-[300px] h-[300px] shadow-xl cursor-pointer snap-start shrink-0 bg-white flex flex-col items-start gap-3 transition-all duration-300 group hover:bg-[#202127]">

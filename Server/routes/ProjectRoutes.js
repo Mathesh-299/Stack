@@ -5,7 +5,7 @@ const projects = require("../models/ProjectModel")
 router.get('/all', async ( req,res) => {
     try {
         const fetchProjects = await projects.find()
-        res.status(201).json(fetchProjects)
+        res.status(200).json(fetchProjects)
     } catch (error) {
         res.status(500).json(error)
     }
@@ -19,7 +19,7 @@ router.post('/add', async (req,res) => {
             res.status(500).json({ message: "Title & Desc requied" })
         }
         const savedata = await newprojectdata.save()
-        res.status(201).json(savedata)
+        res.status(200).json(savedata)
     } catch (error) {
         res.status(500).json(error)
 
@@ -31,7 +31,7 @@ router.put('/edit/:id',async(req,res)=>{
         const id=req.params.id;
         const currectrecord=await projects.findOne({_id: id})
         if(!currectrecord){
-            res.status(500).json({ message:"Project is not found"})
+            res.status(404).json({ message:"Project is not found"})
         }
         const updateProject =await projects.findByIdAndUpdate(id,req.body,{new:true})
         res.status(200).json(updateProject)
@@ -46,7 +46,7 @@ router.delete('/delete/:id',async(req,res)=>{
         const deleteRecord=await projects.findOne({_id:id})
         if(!deleteRecord){
 
-            res.status(400).json({message:"Project is not found"})
+            res.status(404).json({message:"Project is not found"})
         }
         const deleterecord=await projects.findByIdAndDelete(id)
         res.status(200).json(deleterecord)
