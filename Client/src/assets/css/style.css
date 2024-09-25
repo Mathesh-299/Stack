@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    margin: 0px;
+    padding: 0px;
+    /* overflow-x:; */
+    /* overflow-y: visible; */
+}
+
+
+/* Custom Media Queries */
+@media (max-width: 768px) {
+    .image-container {
+      width: 70%;   /* Adjust the width for smaller screens */
+      height: 70%;  /* Ensure the aspect ratio is maintained */
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .image-container {
+      width: 40%;   /* Adjust for medium screens */
+      height: 55%;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .image-container {
+      width: 35%;   /* Adjust for large screens */
+      height: 50%;
+    }
+  }
+  
