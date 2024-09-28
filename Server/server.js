@@ -1,12 +1,13 @@
 require('dotenv').config()
 const express=require('express')
 const app=express()
+const cors=require('cors')
 const DBcon=require('./config/db')
 const projects=require("./routes/ProjectRoutes")
 const Users=require("./routes/UserRouters")
 app.use(express.json())
-// app.use(cors())
 const port=process.env.PORT || 7778
+app.use(cors())
 app.use('/projects', projects)
 app.use('/users',Users)
 
