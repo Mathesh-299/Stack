@@ -1,12 +1,13 @@
-import { Pencil, Trash } from 'lucide-react';
+import { Link, LucideGithub, Pencil, Trash } from 'lucide-react';
 import React, { useState } from 'react';
 import { deleteProject, editProject } from '../service/api';
 
-export const Projectcard = ({id, title, cover, desc, link, fetchprojects }) => {
+export const Projectcard = ({ id, title, cover, desc, link, git, fetchprojects }) => {
   const [titleState, settitleState] = useState(title);
   const [coverState, setcoverState] = useState(cover)
   const [descState, setdescState] = useState(desc);
   const [linkState, setlinkState] = useState(link)
+  const [gitState, setgitState] = useState(git)
   const [visible, setvisible] = useState(false)
 
   const handleeditproject = async (e) => {
@@ -15,7 +16,8 @@ export const Projectcard = ({id, title, cover, desc, link, fetchprojects }) => {
       title: titleState,
       cover: coverState,
       desc: descState,
-      link: linkState
+      link: linkState,
+      git: gitState
     }
     try {
       const response = await editProject(id, projectdata)
@@ -54,6 +56,22 @@ export const Projectcard = ({id, title, cover, desc, link, fetchprojects }) => {
           {desc}
         </p>
         <div className="flex flex-row gap-4">
+          <a href={link} target="_blank" className="overflow-x-visible relative w-12 h-12 overflow-y-clip group text-center hover:bg-purple-500/20 rounded-sm hover:border-b-2 hover:border-purple-500">
+            <div className="flex justify-center items-center w-12 h-12 rounded-full bg-purple-500 transition-all duration-300 absolute top-0 group-hover:scale-[.60] group-hover:origin-top text-white">
+              <Link />
+            </div>
+            <div className="absolute text-white font-bold -bottom-10 left-1/2 text-sm text-center whitespace-nowrap transition-all duration-300 transform -translate-x-1/2 group-hover:bottom-0">
+              View
+            </div>
+          </a>
+          <a href={git} target="_blank" className="overflow-x-visible relative w-12 h-12 overflow-y-clip group text-center hover:bg-gray-500/20 rounded-sm hover:border-b-2 hover:border-gray-500">
+            <div className="flex justify-center items-center w-12 h-12 rounded-full bg-gray-500 transition-all duration-300 absolute top-0 group-hover:scale-[.60] group-hover:origin-top text-white">
+              <LucideGithub />
+            </div>
+            <div className="absolute text-white font-bold -bottom-10 left-1/2 text-sm text-center whitespace-nowrap transition-all duration-300 transform -translate-x-1/2 group-hover:bottom-0">
+              Git
+            </div>
+          </a>
           <div className="overflow-x-visible relative w-12 h-12 group text-center hover:bg-blue-500/20 rounded-sm hover:border-b-2 hover:border-blue-500" onClick={() => setvisible(true)}>
             <div className="flex justify-center items-center w-12 h-12 rounded-full bg-blue-500 transition-all duration-300 absolute top-0 group-hover:scale-[.60] group-hover:origin-top text-white">
               <Pencil />
@@ -125,6 +143,14 @@ export const Projectcard = ({id, title, cover, desc, link, fetchprojects }) => {
                       value={coverState}
                       onChange={(e) => setcoverState(e.target.value)}
                       placeholder="Cover URL"
+                      className="p-3 bg-[#f8f8f8] w-full font-bold"
+                      required
+                    />
+                    <input
+                      type="text"
+                      value={gitState}
+                      onChange={(e) => setgitState(e.target.value)}
+                      placeholder="Git"
                       className="p-3 bg-[#f8f8f8] w-full font-bold"
                       required
                     />

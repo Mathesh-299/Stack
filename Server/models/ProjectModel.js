@@ -16,6 +16,10 @@ const projectSchema = new mongoose.Schema({
     cover:{
         type:String,
         required:true
+    },
+    git:{
+        type:String,
+        required:true
     }
 })
 

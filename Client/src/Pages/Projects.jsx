@@ -31,7 +31,7 @@ const Projects = () => {
             <>
               {
                 projectdata?.map((data, index) => (
-                  <Projectcard title={data.title} desc={data.desc} key={index} pid={index} cover={data.coverimg} id={data.id} link={data.link} fetchprojects={fetchprojects} />
+                  <Projectcard title={data.title} desc={data.desc} key={index} pid={index} cover={data.coverimg} git={data.git} id={data._id} link={data.link} fetchprojects={fetchprojects} />
                 ))
               }
             </>

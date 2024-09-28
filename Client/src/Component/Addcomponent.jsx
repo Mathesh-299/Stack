@@ -2,24 +2,26 @@ import { CircleX, Plus } from 'lucide-react'
 import React, { useRef, useState } from 'react'
 import { addProject } from '../service/api'
 
-const Addcomponent = ({fetchprojects}) => {
+const Addcomponent = ({ fetchprojects }) => {
   const titleref = useRef(null)
   const descref = useRef(null)
   const linkref = useRef(null)
   const coverref = useRef(null)
-  const handleAdd= async(e)=>{
+  const gitref = useRef(null)
+
+  const handleAdd = async (e) => {
     e.preventDefault();
-    const projectdata={
-      title:titleref.current.value,
-      desc:descref.current.value,
-      link:linkref.current.value,
-      cover:coverref.current.value
+    const projectdata = {
+      title: titleref.current.value,
+      desc: descref.current.value,
+      link: linkref.current.value,
+      cover: coverref.current.value,
+      git:gitref.current.value
     }
     try {
-      const response=addProject(projectdata)
+      const response = addProject(projectdata)
       console.log(response.status)
-      if((await response).status === 200)
-      {
+      if ((await response).status === 200) {
         console.log("Added")
       }
       fetchprojects()
@@ -55,6 +57,7 @@ const Addcomponent = ({fetchprojects}) => {
                   <input type="text" ref={descref} name="name" id="desc" placeholder="Your Project Desc" className=' w-full h-12 bg-[#d1d1d1] outline-none active:outline-none focus:border-b-2 text-xl hover:border-blue-700 p-6 font-bold rounded-sm' required />
                   <input type="text" ref={linkref} name="name" id="link" placeholder="Your Project Link" className=' w-full h-12 bg-[#d1d1d1] outline-none active:outline-none focus:border-b-2 text-xl hover:border-blue-700 p-6 font-bold rounded-sm' required />
                   <input type="text" ref={coverref} name="name" id="cover" placeholder="Your Project Cover URL" className=' w-full h-12 bg-[#d1d1d1] outline-none active:outline-none focus:border-b-2 text-xl hover:border-blue-700 p-6 font-bold rounded-sm' required />
+                  <input type="text" ref={gitref} name="" id="git" placeholder="Git" className="p-3 bg-[#f8f8f8] w-full font-bold outline-none active:outline-none focus:border-b-2  hover:border-b-2 hover:border-purple-200 focus:border-purple-600 mb-3" required />
                   <button type="submit"
                     className="submit-btn w-full h-[4rem] bg-green-700 text-black text-2xl font-sans font-bold flex justify-center items-center rounded-lg hover:bg-white mt-4"
                   >Add Project</button>
