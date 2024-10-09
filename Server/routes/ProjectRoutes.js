@@ -1,60 +1,57 @@
-const express = require('express');
-const router = express.Router();
-const User = require('../models/userModel'); // Use singular and capitalized
-
-// Get all users
-router.get('/all', async (req, res) => {
+const express = require("express")
+const router = express.Router()
+// const Projects = require('../models/ProjectModel')
+const projects = require("../models/ProjectModel")
+router.get('/all', async ( req,res) => {
     try {
-        const fetchedUsers = await User.find();
-        res.status(200).json(fetchedUsers);
+        const fetchProjects = await projects.find()
+        res.status(200).json(fetchProjects)
     } catch (error) {
-        res.status(500).json(error);
+        res.status(500).json(error)
     }
-});
+})
 
-// Add new user
-router.post('/add', async (req, res) => {
+router.post('/add', async (req,res) => {
     try {
-        const newUserData = new User(req.body);
-        const { name, about } = newUserData;
-        if (!name || !about) {
-            return res.status(400).json({ message: "Name & About Required" });
+        const newprojectdata = await new projects(req.body)
+        const {title, desc} = newprojectdata
+        if (!title || !desc) {
+            res.status(500).json({ message: "Title & Desc requied" })
         }
-        const saveData = await newUserData.save();
-        res.status(200).json(saveData);
+        const savedata = await newprojectdata.save()
+        res.status(200).json(savedata)
     } catch (error) {
-        res.status(500).json(error);
-    }
-});
+        res.status(500).json(error)
 
-// Edit user
-router.put('/edit/:id', async (req, res) => {
+    }
+})
+
+router.put('/edit/:id',async(req,res)=>{
     try {
-        const id = req.params.id;
-        const currentRecord = await User.findOne({ _id: id });
-        if (!currentRecord) {
-            return res.status(404).json({ message: "User not found!" });
+        const id=req.params.id;
+        const currectrecord=await projects.findOne({_id: id})
+        if(!currectrecord){
+            res.status(404).json({ message:"Project is not found"})
         }
-        const updateUser = await User.findByIdAndUpdate(id, req.body, { new: true });
-        res.status(200).json(updateUser);
+        const updateProject =await projects.findByIdAndUpdate(id,req.body,{new:true})
+        res.status(200).json(updateProject)
     } catch (error) {
-        res.status(500).json(error);
+        res.status(500).json(error)
     }
-});
+})
 
-// Delete user
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete/:id',async(req,res)=>{
     try {
-        const id = req.params.id;
-        const currentRecord = await User.findOne({ _id: id });
-        if (!currentRecord) {
-            return res.status(404).json({ message: "User not found!" });
-        }
-        await User.findByIdAndDelete(id); // Fix capitalization here
-        res.status(200).json({ message: "User Deleted!" });
-    } catch (error) {
-        res.status(500).json(error);
-    }
-});
+        const id=req.params.id
+        const deleteRecord=await projects.findOne({_id:id})
+        if(!deleteRecord){
 
-module.exports = router;
+            res.status(404).json({message:"Project is not found"})
+        }
+        const deleterecord=await projects.findByIdAndDelete(id)
+        res.status(200).json(deleterecord)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
+module.exports = router
