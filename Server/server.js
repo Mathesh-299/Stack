@@ -7,7 +7,7 @@ const projects = require("./routes/ProjectRoutes");
 // const Users = require("./routes/UserRouters");
 
 app.use(express.json());
-const port = process.env.PORT || 7778;
+const port = process.env.PORT || 10000;
 app.use(cors());
 app.use('/projects', projects);
 // app.use('/users', Users);
