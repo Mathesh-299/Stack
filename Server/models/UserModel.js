@@ -3,23 +3,21 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
     },
     age: {
         type: Number,
-        required: true
+        required: true,
     },
     about: {
         type: String,
-        required: true
+        required: true,
     },
     gender: {
         type: String,
-        required: true
-    }
+        required: true,
+    },
 });
 
-// Correct the model name
-const User = mongoose.model("User", userSchema);
-
-module.exports = User;
+const users = mongoose.model('User', userSchema); // Ensure this name is unique
+module.exports = users;
